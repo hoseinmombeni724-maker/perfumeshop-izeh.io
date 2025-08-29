@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>عطرفروشی ایذه</title>
+<title>بیج عطر فروشی</title>
 <style>
   body {
     margin: 0;
@@ -69,6 +69,10 @@
     animation: fadeIn 0.5s ease-in-out;
   }
 
+  .page.active {
+    display: block;
+  }
+
   @keyframes fadeIn {
     from {opacity: 0;}
     to {opacity: 1;}
@@ -94,27 +98,21 @@
 
 <div class="container">
   <!-- صفحه اول -->
-  <div id="page1" class="page" style="display:block;">
-    <h1>سلام! مرسی که منو اسکن کردی! بیا با هم یه بازی کنیم 😄</h1>
-    <p>اسمت رو واسم بنویس:</p>
+  <div id="page1" class="page active">
+    <h1>سلام! بیا با هم بازی کنیم 😄</h1>
+    <p>اسم خودت رو بهم بده:</p>
     <input type="text" id="name" placeholder="مثلاً علی">
-    <p>بگو ببینم چند سالته؟</p>
+    <p>سنّت چند ساله؟</p>
     <input type="number" id="age" placeholder="مثلاً ۲۵">
-    <button onclick="goToPage2()">بزن بریم باهات کار دارم!</button>
+    <button id="goBtn">بزن بریم 🚀</button>
   </div>
 
   <!-- صفحه دوم -->
   <div id="page2" class="page">
     <h1 id="greeting"></h1>
-    <p>خوش اومدی رفیق😍<br>
-       سلام <span id="dispName"></span>  آره عزیزم من اسمتو میدونم.من حتی میدونم ! <span id="dispAge"></span> سالته.</p>
-    <p>اومدم بهت بگم من یه عطر فروشی دارم.
-البته،شاید تو الان به عطر نیاز نداشته باشی
-ولی من قسط و چک دارم باید بیای خرید کنی ازم
-پس منتظرتم
-اما توی شهر بوی دوغ گرفته،توروخدا بیاین عطر بخرین،خیر نبینین اگه نیاین!
-اینجا پیجو هم میزارم برات دوس داشتی بیا سر بزن
-البته دوست داشتنت اجباریه 🌸<br>
+    <p>می‌دونم تو کی هستی! 😎<br>
+       اسمت <span id="dispName"></span> هست و <span id="dispAge"></span> سالت هست.</p>
+    <p>من یه فروشگاه عطر تو ایذه دارم 🌸<br>
        آدرس: خیابان فلان، پلاک فلان</p>
     <p>حالا بیا یه سر به پیجمون تو اینستا بزن 😉</p>
     <a href="https://www.instagram.com/USERNAME" target="_blank">رفتن به اینستا</a>
@@ -122,11 +120,15 @@
 </div>
 
 <script>
-  function goToPage2() {
+  const goBtn = document.getElementById('goBtn');
+
+  goBtn.addEventListener('click', function(event) {
+    event.preventDefault(); // جلوگیری از ریفرش شدن صفحه
+
     const name = document.getElementById('name').value.trim();
     const age = document.getElementById('age').value.trim();
 
-    if(name === "" || age === "") {
+    if (!name || !age) {
       alert("لطفا هم اسم و هم سن رو وارد کن 😅");
       return;
     }
@@ -135,9 +137,10 @@
     document.getElementById('dispAge').textContent = age;
     document.getElementById('greeting').textContent = هی ${name}!;
 
-    document.getElementById('page1').style.display = 'none';
-    document.getElementById('page2').style.display = 'block';
-  }
+    // مخفی کردن صفحه اول و نمایش صفحه دوم
+    document.getElementById('page1').classList.remove('active');
+    document.getElementById('page2').classList.add('active');
+  });
 </script>
 
 </body>

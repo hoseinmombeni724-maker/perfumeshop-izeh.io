@@ -1,125 +1,133 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بیج عطر فروشی</title>
-<style>
-  body {
-    margin: 0;
-    font-family: 'Vazir', sans-serif;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    direction: rtl;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عطر فروشی بامزه من</title>
+  
+  <!-- فونت فارسی وزیر -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
 
-  .container {
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-    padding: 30px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    border-radius: 20px;
-    background-color: #fff;
-  }
+  <style>
+    body {
+      font-family: "Vazir", sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #333;
+    }
 
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-  }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      max-width: 400px;
+      margin: auto;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      text-align: center;
+    }
 
-  input {
-    width: 80%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border: 2px solid #ccc;
-    font-size: 16px;
-  }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
 
-  button {
-    margin-top: 20px;
-    padding: 12px 25px;
-    font-size: 16px;
-    border: none;
-    border-radius: 15px;
-    background-color: #3498db;
-    color: #fff;
-    cursor: pointer;
-    transition: 0.3s;
-  }
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
 
-  button:hover {
-    transform: scale(1.05);
-  }
+    input {
+      width: 80%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      outline: none;
+      text-align: center;
+    }
 
-  .hidden {
-    display: none;
-  }
+    button {
+      padding: 12px 25px;
+      background: #ff4d6d;
+      border: none;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-  a {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #e1306c;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 15px;
-    transition: 0.3s;
-  }
+    button:hover {
+      background: #e63950;
+    }
 
-  a:hover {
-    transform: scale(1.05);
-  }
-</style>
+    .hidden {
+      display: none;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    a:hover {
+      background: #3e8e41;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-  <!-- صفحه اول -->
-  <div id="page1">
-    <h1>سلام! بیا با هم بازی کنیم 😄</h1>
-    <p>اسم خودت رو بهم بده:</p>
-    <input type="text" id="name" placeholder="مثلاً علی">
-    <p>سنّت چند ساله؟</p>
-    <input type="text" id="age" placeholder="مثلاً ۲۵">
-    <button id="goBtn">بزن بریم 🚀</button>
+  <!-- صفحه اول: گرفتن اسم و فامیل -->
+  <div class="container" id="page1">
+    <h1>هی رفیق! 😎</h1>
+    <p>اسم و فامیلتو بهم بده، قول میدم فقط خوش‌آمدگویی کنم 😁</p>
+    
+    <form onsubmit="goToPage2(); return false;">
+      <input type="text" id="nameInput" placeholder="اسم و فامیلت...">
+      <br>
+      <button type="submit">بزن بریم 🚀</button>
+    </form>
   </div>
 
-  <!-- صفحه دوم -->
-  <div id="page2" class="hidden">
-    <h1 id="greeting"></h1>
-    <p>می‌دونم تو کی هستی! 😎<br>
-       اسمت <span id="dispName"></span> هست و <span id="dispAge"></span> سالت هست.</p>
-    <p>من یه فروشگاه عطر تو ایذه دارم 🌸<br>
-       آدرس: خیابان فلان، پلاک فلان</p>
-    <p>حالا بیا یه سر به پیجمون تو اینستا بزن 😉</p>
-    <a href="https://www.instagram.com/USERNAME" target="_blank">رفتن به اینستا</a>
+  <!-- صفحه دوم: معرفی عطر فروشی -->
+  <div class="container hidden" id="page2">
+    <h1 id="welcomeText"></h1>
+    <p>
+      خوش اومدی به دنیای خوشبوها! 🌸<br>  
+      من اینجام تا حالتو با عطرایی که از <strong>ایذه</strong> میاد، توپ کنم 😏<br>
+      عطرایی که بهتر از آهنگای تیک‌تاک حالت رو عوض می‌کنن 😍<br>
+      یه سر بزن به پیج اینستا، دماغت عاشق می‌شه! 😂
+    </p>
+    <a href="https://instagram.com/yourpage" target="_blank">بزن بریم اینستا 📸</a>
   </div>
-</div>
 
-<script>
-  document.getElementById('goBtn').onclick = function() {
-    const name = document.getElementById('name').value.trim();
-    const age = document.getElementById('age').value.trim();
-
-    if(name === "" || age === "") {
-      alert("لطفا هم اسم و هم سن رو وارد کن 😅");
-      return;
+  <script>
+    function goToPage2() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (!name) {
+        alert("هی! اسم و فامیلتو بده دیگه 😁");
+        return;
+      }
+      document.getElementById("page1").classList.add("hidden");
+      document.getElementById("page2").classList.remove("hidden");
+      document.getElementById("welcomeText").innerText = سلام ${name}! خوش اومدی 👋;
     }
-
-    document.getElementById('dispName').textContent = name;
-    document.getElementById('dispAge').textContent = age;
-    document.getElementById('greeting').textContent = هی ${name}!;
-
-    document.getElementById('page1').classList.add('hidden');
-    document.getElementById('page2').classList.remove('hidden');
-  }
-</script>
+  </script>
 
 </body>
 </html>

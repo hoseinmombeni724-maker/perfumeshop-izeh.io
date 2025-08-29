@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>عطر فروشی ایذه</title>
-<!-- لود کردن فونت ایران سانس از CDN -->
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/iransans@1.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
 <style>
     body {
@@ -26,9 +25,7 @@
         border-radius: 20px;
         background-color: #fff;
         box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        opacity: 0;
-        transform: translateY(50px);
-        animation: fadeInUp 0.8s forwards;
+        transition: all 0.5s ease;
     }
 
     input {
@@ -38,7 +35,6 @@
         border-radius: 10px;
         border: 1px solid #ccc;
         font-size: 16px;
-        transition: all 0.3s;
     }
 
     input:focus {
@@ -57,40 +53,29 @@
         cursor: pointer;
         margin-top: 15px;
         transition: all 0.3s;
-        display: inline-block;
-        animation: popIn 0.5s ease forwards;
     }
 
     button:hover {
         background-color: #ff6347;
-        transform: scale(1.1) rotate(-2deg);
+        transform: scale(1.05);
     }
 
-    .hidden {
-        display: none;
-    }
-
-    @keyframes fadeInUp {
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes popIn {
-        0% { transform: scale(0.5); opacity: 0; }
-        100% { transform: scale(1); opacity: 1; }
+    #step2 {
+        opacity: 0;
+        transform: translateY(50px);
     }
 
     .fun-text {
         margin: 20px 0;
         font-size: 18px;
         line-height: 1.6;
+        white-space: pre-wrap;
         min-height: 60px;
-        white-space: pre-wrap; /* برای حفظ خطوط */
     }
 </style>
 </head>
 <body>
 
-<!-- صفحه اول -->
 <div class="container" id="step1">
     <h2>سلام! 😄</h2>
     <p>می‌خوای باهات آشنا بشم! اسم کوچیکت چیه؟</p>
@@ -98,11 +83,10 @@
     <p>و چند سالته؟</p>
     <input type="number" id="age" placeholder="سن رو وارد کن" min="1">
     <br>
-    <button onclick="nextStep()">بزن بریم 🚀</button>
+    <button id="goButton">بزن بریم 🚀</button>
 </div>
 
-<!-- صفحه دوم -->
-<div class="container hidden" id="step2">
+<div class="container" id="step2">
     <h2 id="greeting"></h2>
     <p class="fun-text" id="funText"></p>
     <a href="https://www.instagram.com/yourpage" target="_blank">
@@ -111,48 +95,41 @@
 </div>
 
 <script>
-function nextStep() {
+document.getElementById('goButton').addEventListener('click', function(){
     const first = document.getElementById('firstname').value.trim();
     const age = document.getElementById('age').value.trim();
-    if(first === '' || age === '') {
+
+    if(!first || !age){
         alert('هی! هر دو فیلد اسم و سن رو باید پر کنی 😅');
         return;
     }
 
+    // نمایش متن صفحه دوم
+    document.getElementById('greeting').textContent = می‌دونم اسمت چیه: ${first};
+    const text = و ${age} سالته! 😎\nوای! این سن و سال با این اسم بامزه 😜\nبیایم یه کمی عطرای خوشبو ببینی و خوش بگذرونیم! 🌸;
+    const funText = document.getElementById('funText');
+    funText.textContent = '';
+    let i=0;
+    const interval = setInterval(()=>{
+        funText.textContent += text.charAt(i);
+        i++;
+        if(i>=text.length) clearInterval(interval);
+    }, 40);
+
+    // انیمیشن مخفی شدن صفحه اول و نمایش صفحه دوم
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
 
-    // مخفی کردن صفحه اول با انیمیشن
-    step1.style.transition = 'all 0.5s';
-    step1.style.opacity = 0;
     step1.style.transform = 'translateY(-50px)';
-    
-    setTimeout(() => {
-        step1.classList.add('hidden');
-        step2.classList.remove('hidden');
-        step2.style.animation = 'fadeInUp 0.8s forwards';
-        startTyping(first, age);
+    step1.style.opacity = 0;
+
+    setTimeout(()=>{
+        step1.style.display = 'none';
+        step2.style.display = 'block';
+        step2.style.opacity = 1;
+        step2.style.transform = 'translateY(0)';
     }, 500);
-}
-
-function startTyping(name, age) {
-    const greeting = document.getElementById('greeting');
-    const funText = document.getElementById('funText');
-
-    greeting.textContent = می‌دونم اسمت چیه: ${name};
-
-    const text = و ${age} سالته! 😎
-وای! این سن و سال با این اسم بامزه 😜
-بیایم یه کمی عطرای خوشبو ببینی و خوش بگذرونیم! 🌸;
-
-let i = 0;
-    funText.textContent = '';
-    const interval = setInterval(() => {
-        funText.textContent += text.charAt(i);
-        i++;
-        if(i >= text.length) clearInterval(interval);
-    }, 40);
-}
+});
 </script>
 
 </body>

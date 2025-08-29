@@ -39,12 +39,6 @@
     border-radius: 10px;
     border: 2px solid #ccc;
     font-size: 16px;
-    transition: 0.3s;
-  }
-
-  input:focus {
-    border-color: #3498db;
-    outline: none;
   }
 
   button {
@@ -56,26 +50,15 @@
     background-color: #3498db;
     color: #fff;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: 0.3s;
   }
 
   button:hover {
     transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(52,152,219,0.4);
   }
 
-  .page {
+  .hidden {
     display: none;
-    animation: fadeIn 0.5s ease-in-out;
-  }
-
-  .page.active {
-    display: block;
-  }
-
-  @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
   }
 
   a {
@@ -98,17 +81,17 @@
 
 <div class="container">
   <!-- صفحه اول -->
-  <div id="page1" class="page active">
+  <div id="page1">
     <h1>سلام! بیا با هم بازی کنیم 😄</h1>
     <p>اسم خودت رو بهم بده:</p>
     <input type="text" id="name" placeholder="مثلاً علی">
     <p>سنّت چند ساله؟</p>
-    <input type="number" id="age" placeholder="مثلاً ۲۵">
+    <input type="text" id="age" placeholder="مثلاً ۲۵">
     <button id="goBtn">بزن بریم 🚀</button>
   </div>
 
   <!-- صفحه دوم -->
-  <div id="page2" class="page">
+  <div id="page2" class="hidden">
     <h1 id="greeting"></h1>
     <p>می‌دونم تو کی هستی! 😎<br>
        اسمت <span id="dispName"></span> هست و <span id="dispAge"></span> سالت هست.</p>
@@ -120,15 +103,11 @@
 </div>
 
 <script>
-  const goBtn = document.getElementById('goBtn');
-
-  goBtn.addEventListener('click', function(event) {
-    event.preventDefault(); // جلوگیری از ریفرش شدن صفحه
-
+  document.getElementById('goBtn').onclick = function() {
     const name = document.getElementById('name').value.trim();
     const age = document.getElementById('age').value.trim();
 
-    if (!name || !age) {
+    if(name === "" || age === "") {
       alert("لطفا هم اسم و هم سن رو وارد کن 😅");
       return;
     }
@@ -137,10 +116,9 @@
     document.getElementById('dispAge').textContent = age;
     document.getElementById('greeting').textContent = هی ${name}!;
 
-    // مخفی کردن صفحه اول و نمایش صفحه دوم
-    document.getElementById('page1').classList.remove('active');
-    document.getElementById('page2').classList.add('active');
-  });
+    document.getElementById('page1').classList.add('hidden');
+    document.getElementById('page2').classList.remove('hidden');
+  }
 </script>
 
 </body>

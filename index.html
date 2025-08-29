@@ -1,133 +1,159 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>عطر فروشی بامزه من</title>
-  
-  <!-- فونت فارسی وزیر -->
-  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
-
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عطر فروشی ایذه</title>
+<!-- لود کردن فونت ایران سانس از CDN -->
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/iransans@1.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+<style>
     body {
-      font-family: "Vazir", sans-serif;
-      background: #fff;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      color: #333;
+        margin: 0;
+        font-family: 'IRANSans', Tahoma, sans-serif;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        overflow: hidden;
     }
 
     .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      max-width: 400px;
-      margin: auto;
-      padding: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      border-radius: 20px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 15px;
-    }
-
-    p {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
+        text-align: center;
+        width: 90%;
+        max-width: 400px;
+        padding: 30px;
+        border-radius: 20px;
+        background-color: #fff;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeInUp 0.8s forwards;
     }
 
     input {
-      width: 80%;
-      padding: 10px;
-      font-size: 1rem;
-      border: 2px solid #ccc;
-      border-radius: 12px;
-      margin-bottom: 15px;
-      outline: none;
-      text-align: center;
+        width: 80%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        transition: all 0.3s;
+    }
+
+    input:focus {
+        border-color: #ff7f50;
+        box-shadow: 0 0 8px rgba(255,127,80,0.5);
+        outline: none;
     }
 
     button {
-      padding: 12px 25px;
-      background: #ff4d6d;
-      border: none;
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: bold;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.3s;
+        padding: 12px 25px;
+        font-size: 16px;
+        border-radius: 12px;
+        border: none;
+        background-color: #ff7f50;
+        color: white;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: all 0.3s;
+        display: inline-block;
+        animation: popIn 0.5s ease forwards;
     }
 
     button:hover {
-      background: #e63950;
+        background-color: #ff6347;
+        transform: scale(1.1) rotate(-2deg);
     }
 
     .hidden {
-      display: none;
+        display: none;
     }
 
-    a {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 25px;
-      background: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: bold;
-      transition: 0.3s;
+    @keyframes fadeInUp {
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    a:hover {
-      background: #3e8e41;
+    @keyframes popIn {
+        0% { transform: scale(0.5); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
     }
-  </style>
+
+    .fun-text {
+        margin: 20px 0;
+        font-size: 18px;
+        line-height: 1.6;
+        min-height: 60px;
+        white-space: pre-wrap; /* برای حفظ خطوط */
+    }
+</style>
 </head>
 <body>
 
-  <!-- صفحه اول: گرفتن اسم و فامیل -->
-  <div class="container" id="page1">
-    <h1>هی رفیق! 😎</h1>
-    <p>اسم و فامیلتو بهم بده، قول میدم فقط خوش‌آمدگویی کنم 😁</p>
-    
-    <form onsubmit="goToPage2(); return false;">
-      <input type="text" id="nameInput" placeholder="اسم و فامیلت...">
-      <br>
-      <button type="submit">بزن بریم 🚀</button>
-    </form>
-  </div>
+<!-- صفحه اول -->
+<div class="container" id="step1">
+    <h2>سلام! 😄</h2>
+    <p>می‌خوای باهات آشنا بشم! اسم کوچیکت چیه؟</p>
+    <input type="text" id="firstname" placeholder="اسم کوچیکت رو وارد کن">
+    <p>و چند سالته؟</p>
+    <input type="number" id="age" placeholder="سن رو وارد کن" min="1">
+    <br>
+    <button onclick="nextStep()">بزن بریم 🚀</button>
+</div>
 
-  <!-- صفحه دوم: معرفی عطر فروشی -->
-  <div class="container hidden" id="page2">
-    <h1 id="welcomeText"></h1>
-    <p>
-      خوش اومدی به دنیای خوشبوها! 🌸<br>  
-      من اینجام تا حالتو با عطرایی که از <strong>ایذه</strong> میاد، توپ کنم 😏<br>
-      عطرایی که بهتر از آهنگای تیک‌تاک حالت رو عوض می‌کنن 😍<br>
-      یه سر بزن به پیج اینستا، دماغت عاشق می‌شه! 😂
-    </p>
-    <a href="https://instagram.com/yourpage" target="_blank">بزن بریم اینستا 📸</a>
-  </div>
+<!-- صفحه دوم -->
+<div class="container hidden" id="step2">
+    <h2 id="greeting"></h2>
+    <p class="fun-text" id="funText"></p>
+    <a href="https://www.instagram.com/yourpage" target="_blank">
+        <button>رفتن به پیج اینستا 📸</button>
+    </a>
+</div>
 
-  <script>
-    function goToPage2() {
-      const name = document.getElementById("nameInput").value.trim();
-      if (!name) {
-        alert("هی! اسم و فامیلتو بده دیگه 😁");
+<script>
+function nextStep() {
+    const first = document.getElementById('firstname').value.trim();
+    const age = document.getElementById('age').value.trim();
+    if(first === '' || age === '') {
+        alert('هی! هر دو فیلد اسم و سن رو باید پر کنی 😅');
         return;
-      }
-      document.getElementById("page1").classList.add("hidden");
-      document.getElementById("page2").classList.remove("hidden");
-      document.getElementById("welcomeText").innerText = سلام ${name}! خوش اومدی 👋;
     }
-  </script>
+
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+
+    // مخفی کردن صفحه اول با انیمیشن
+    step1.style.transition = 'all 0.5s';
+    step1.style.opacity = 0;
+    step1.style.transform = 'translateY(-50px)';
+    
+    setTimeout(() => {
+        step1.classList.add('hidden');
+        step2.classList.remove('hidden');
+        step2.style.animation = 'fadeInUp 0.8s forwards';
+        startTyping(first, age);
+    }, 500);
+}
+
+function startTyping(name, age) {
+    const greeting = document.getElementById('greeting');
+    const funText = document.getElementById('funText');
+
+    greeting.textContent = می‌دونم اسمت چیه: ${name};
+
+    const text = و ${age} سالته! 😎
+وای! این سن و سال با این اسم بامزه 😜
+بیایم یه کمی عطرای خوشبو ببینی و خوش بگذرونیم! 🌸;
+
+let i = 0;
+    funText.textContent = '';
+    const interval = setInterval(() => {
+        funText.textContent += text.charAt(i);
+        i++;
+        if(i >= text.length) clearInterval(interval);
+    }, 40);
+}
+</script>
 
 </body>
 </html>

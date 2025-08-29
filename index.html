@@ -4,133 +4,85 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>عطر فروشی ایذه</title>
-<link href="https://cdn.jsdelivr.net/gh/rastikerdar/iransans@1.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
 <style>
     body {
-        margin: 0;
-        font-family: 'IRANSans', Tahoma, sans-serif;
+        font-family: 'Tahoma', sans-serif;
         background-color: #fff;
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 100vh;
-        overflow: hidden;
+        height: 100vh;
+        margin: 0;
     }
-
     .container {
         text-align: center;
         width: 90%;
         max-width: 400px;
         padding: 30px;
-        border-radius: 20px;
-        background-color: #fff;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        transition: all 0.5s ease;
+        border: 2px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
-
     input {
         width: 80%;
-        padding: 12px;
+        padding: 10px;
         margin: 10px 0;
-        border-radius: 10px;
+        border-radius: 8px;
         border: 1px solid #ccc;
         font-size: 16px;
     }
-
-    input:focus {
-        border-color: #ff7f50;
-        box-shadow: 0 0 8px rgba(255,127,80,0.5);
-        outline: none;
-    }
-
     button {
-        padding: 12px 25px;
+        padding: 10px 20px;
         font-size: 16px;
-        border-radius: 12px;
+        border-radius: 8px;
         border: none;
         background-color: #ff7f50;
         color: white;
         cursor: pointer;
-        margin-top: 15px;
-        transition: all 0.3s;
+        margin-top: 10px;
     }
-
     button:hover {
         background-color: #ff6347;
-        transform: scale(1.05);
     }
-
-    #step2 {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-
-    .fun-text {
-        margin: 20px 0;
-        font-size: 18px;
-        line-height: 1.6;
-        white-space: pre-wrap;
-        min-height: 60px;
+    .hidden {
+        display: none;
     }
 </style>
 </head>
 <body>
-
 <div class="container" id="step1">
     <h2>سلام! 😄</h2>
-    <p>می‌خوای باهات آشنا بشم! اسم کوچیکت چیه؟</p>
+    <p>می‌خوام باهات آشنا بشم! اول اسم کوچیکت چیه؟</p>
     <input type="text" id="firstname" placeholder="اسم کوچیکت رو وارد کن">
-    <p>و چند سالته؟</p>
-    <input type="number" id="age" placeholder="سن رو وارد کن" min="1">
+    <p>و فامیلت چیه؟</p>
+    <input type="text" id="lastname" placeholder="فامیل رو وارد کن">
     <br>
-    <button id="goButton">بزن بریم 🚀</button>
+    <button onclick="nextStep()">بزن بریم 🚀</button>
 </div>
 
-<div class="container" id="step2">
-    <h2 id="greeting"></h2>
-    <p class="fun-text" id="funText"></p>
+<div class="container hidden" id="step2">
+    <h2>ایول <span id="displayName"></span>! 😎</h2>
+    <p>من یه عطر فروشی تو ایذه دارم! 🛍️<br>
+       آدرس: خیابان فلان، کوچه فلان 🌸<br>
+       بیا یکمی بامزه باهات شوخی کنیم 😜</p>
+    <p>اگر خواستی عطرای ما رو ببینی و بگیری، روی لینک پایین بزن:</p>
     <a href="https://www.instagram.com/yourpage" target="_blank">
         <button>رفتن به پیج اینستا 📸</button>
     </a>
 </div>
 
 <script>
-document.getElementById('goButton').addEventListener('click', function(){
+function nextStep() {
     const first = document.getElementById('firstname').value.trim();
-    const age = document.getElementById('age').value.trim();
-
-    if(!first || !age){
-        alert('هی! هر دو فیلد اسم و سن رو باید پر کنی 😅');
+    const last = document.getElementById('lastname').value.trim();
+    if(first === '' || last === '') {
+        alert('هی! اسم و فامیل رو باید وارد کنی 😅');
         return;
     }
-
-    // نمایش متن صفحه دوم
-    document.getElementById('greeting').textContent = می‌دونم اسمت چیه: ${first};
-    const text = و ${age} سالته! 😎\nوای! این سن و سال با این اسم بامزه 😜\nبیایم یه کمی عطرای خوشبو ببینی و خوش بگذرونیم! 🌸;
-    const funText = document.getElementById('funText');
-    funText.textContent = '';
-    let i=0;
-    const interval = setInterval(()=>{
-        funText.textContent += text.charAt(i);
-        i++;
-        if(i>=text.length) clearInterval(interval);
-    }, 40);
-
-    // انیمیشن مخفی شدن صفحه اول و نمایش صفحه دوم
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
-
-    step1.style.transform = 'translateY(-50px)';
-    step1.style.opacity = 0;
-
-    setTimeout(()=>{
-        step1.style.display = 'none';
-        step2.style.display = 'block';
-        step2.style.opacity = 1;
-        step2.style.transform = 'translateY(0)';
-    }, 500);
-});
+    document.getElementById('displayName').textContent = first + ' ' + last;
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('step2').classList.remove('hidden');
+}
 </script>
-
 </body>
 </html>
